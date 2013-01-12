@@ -1,0 +1,31 @@
+make_array() - create a fixed size array
+
+--- Introduction ---
+The make_array() function constructs a fixed size boost::array<> given 0..N
+arguments. It is similar to the std::make_pair() and std::make_tuple()
+functions.
+
+--- Interface ---
+The make_array() function provides the following interface:
+
+template<class T>
+boost::array<T, N> make_array(...)
+
+where the '...' indicates 0 to N arguments.
+
+If no type T is passed explicitly it is deduced from the type of the first
+argument. The function requires that all of the arguments must be convertible
+(via static_cast<>) to type T.
+
+--- Examples ---
+// create 2-component array of type int
+boost::array<int, 2> a = boost::make_array(4, 2);
+
+// create 3-component array of type float given int arguments
+boost::array<float, 3> = boost::make_array<float>(1, 2, 3);
+
+--- Implementation Details ---
+The make_array() function is implemented with C++11 variadic templates if they
+are supported by the compiler. Otherwise a fallback implementation uses the 
+preproccesor to create N oveerloads of make_array() where N is defined by
+BOOST_MAKE_ARRAY_MAX_ARITY (with a default of 10).
