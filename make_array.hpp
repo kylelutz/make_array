@@ -82,28 +82,6 @@ struct get_first_arg
     typedef T type;
 };
 
-template<class Array>
-void push_array(Array &)
-{
-}
-
-template<class Array, class T, class... Args>
-void push_array(Array &array, const T &value, Args&&... args)
-{
-    const size_t n = Array::static_size - sizeof...(Args) - 1;
-    array[n] = static_cast<typename Array::value_type>(value);
-    push_array(array, args...);
-}
-
-template<class T, class... Args>
-inline array<T, sizeof...(Args)>
-make_array_impl(Args&&... args)
-{
-    boost::array<T, sizeof...(Args)> array;
-    detail::push_array(array, args...);
-    return array;
-}
-
 } // end detail namespace
 
 // make_array with zero-length
@@ -115,16 +93,14 @@ inline array<T, 0> make_array()
 
 // make_array with explicit type
 template<class T, class... Args>
-inline array<T, sizeof...(Args)>
-make_array(Args&&... args,
-           typename disable_if<
-               typename is_same<
-                   T,
-                   typename detail::get_first_arg<Args...>::type
-               >::type
-           >::type* = 0)
+inline array<T, sizeof...(Args)+1>
+make_array(T&& x, Args&&... args)
 {
-    return detail::make_array_impl<T>(args...);
+    return
+        array<T, sizeof...(Args)+1> {{
+            std::forward<T>(x),
+            static_cast<T>(std::forward<Args>(args))...
+        }};
 }
 
 // make_array with deduced type
@@ -134,7 +110,10 @@ make_array(Args&&... args)
 {
     typedef typename detail::get_first_arg<Args...>::type T;
 
-    return detail::make_array_impl<T>(args...);
+    return
+        array<T, sizeof...(Args)> {{
+            static_cast<T>(std::forward<Args>(args))...
+        }};
 }
 
 } // end boost namespace
