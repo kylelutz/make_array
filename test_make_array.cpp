@@ -65,6 +65,27 @@ BOOST_AUTO_TEST_CASE(make_array_type)
 
     BOOST_STATIC_ASSERT((
         boost::is_same<
+            BOOST_TYPEOF(boost::make_array<int>(1.2f, 2.2f)),
+            boost::array<int, 2>
+        >::value
+    ));
+
+    BOOST_STATIC_ASSERT((
+        boost::is_same<
+            BOOST_TYPEOF(boost::make_array(1, 2.1f)),
+            boost::array<float, 2>
+        >::value
+    ));
+
+    BOOST_STATIC_ASSERT((
+        boost::is_same<
+            BOOST_TYPEOF(boost::make_array(1, 2.1f, 3.2)),
+            boost::array<double, 3>
+        >::value
+    ));
+
+    BOOST_STATIC_ASSERT((
+        boost::is_same<
             BOOST_TYPEOF(boost::make_array<std::string>("h", "el", "lo")),
             boost::array<std::string, 3>
         >::value

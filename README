@@ -13,9 +13,9 @@ boost::array<T, N> make_array(...)
 
 where the '...' indicates 0 to N arguments.
 
-If no type T is passed explicitly it is deduced from the type of the first
-argument. The function requires that all of the arguments must be convertible
-(via static_cast<>) to type T.
+If no type T is passed explicitly it is deduced from the common type of the
+arguments. The function requires that all of the arguments must be convertible
+(via static_cast<>) to the explicit type T or the deduced type.
 
 --- Examples ---
 // create 2-component array of type int
