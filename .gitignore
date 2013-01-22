@@ -1,0 +1,9 @@
+# build files
+bin/
+
+# documentation files
+doc/bin/
+doc/html/
+
+# vim temp files
+.*.sw*

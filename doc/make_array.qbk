@@ -1,0 +1,77 @@
+[/========================================================================== //
+// Copyright (c) 2013 Kyle Lutz <kyle.r.lutz@gmail.com>
+//
+// Distributed under the Boost Software License, Version 1.0.
+//   (See accompanying file LICENSE_1_0.txt or copy at
+//         http://www.boost.org/LICENSE_1_0.txt)
+// ==========================================================================/]
+
+[chapter Boost.MakeArray
+    [quickbook 1.5]
+    [authors [Lutz, Kyle]]
+    [copyright 2013 Kyle Lutz]
+    [id make_array]
+    [license
+        Distributed under the Boost Software License, Version 1.0.
+        (See accompanying file LICENSE_1_0.txt or copy at
+        [@http://www.boost.org/LICENSE_1_0.txt])
+    ]
+]
+
+[h1 Introduction]
+
+The `make_array()` function constructs a fixed size `boost::array<>` given
+0..N arguments. It is similar to the `std::make_pair()` and `std::make_tuple()`
+functions.
+
+[h1 Interface]
+
+The `make_array()` function provides the following interface:
+
+``
+    template<class T>
+    boost::array<T, N> make_array(...)
+``
+
+where the '...' indicates 0 to N arguments.
+
+If no type `T` is passed explicitly it is deduced to be the type common to all
+of the arguments (via `boost::common_type<>`). The function requires that all
+of the arguments be convertible (via `static_cast<>`) to the explicit type `T`
+or the deduced type.
+
+[h1 Examples]
+
+The following example shows how to use the `make_array()` function to create an
+array containing two `int` elements:
+
+``
+    boost::array<int, 2> x = boost::make_array(46, 2);
+``
+
+The following creates an array containing three `float` elements:
+
+``
+    boost::array<float, 3> x = boost::make_array(1.2f, 3.4f, 5.6f);
+``
+
+The following creates an array of two `float` elements from two `int`
+arguments by specifying the type explicitly:
+
+``
+    boost::array<float, 2> x = boost::make_array<float>(3, 14);
+``
+
+The following creates an array of three `double` elements from an `int`,
+`float`, and `double` argument:
+
+``
+    boost::array<double, 3> x = boost::make_array(1, 2.0f, 3.0);
+``
+
+[h1 Implementation Notes]
+
+The `make_array()` function is implemented with C++11 variadic templates if
+they are supported by the compiler. Otherwise a fallback implementation uses
+the preproccesor to create N overloads of `make_array()` where N is defined by
+`BOOST_MAKE_ARRAY_MAX_ARITY` (with a default of 10).
