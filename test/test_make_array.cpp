@@ -12,11 +12,10 @@
 #include <string>
 
 #include <boost/array.hpp>
+#include <boost/make_array.hpp>
 #include <boost/static_assert.hpp>
 #include <boost/typeof/typeof.hpp>
 #include <boost/type_traits/is_same.hpp>
-
-#include "make_array.hpp"
 
 BOOST_AUTO_TEST_CASE(make_array)
 {
