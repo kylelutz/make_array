@@ -1,0 +1,128 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<title>Chapter&#160;1.&#160;Boost.MakeArray</title>
+<link rel="stylesheet" href="boostbook.css" type="text/css">
+<meta name="generator" content="DocBook XSL Stylesheets V1.76.1">
+<link rel="home" href="index.html" title="Chapter&#160;1.&#160;Boost.MakeArray">
+</head>
+<body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
+<table cellpadding="2" width="100%"><tr><td valign="top"></td></tr></table>
+<hr>
+<div class="spirit-nav"></div>
+<div class="chapter">
+<div class="titlepage"><div>
+<div><h2 class="title">
+<a name="make_array"></a>Chapter&#160;1.&#160;Boost.MakeArray</h2></div>
+<div><div class="authorgroup"><div class="author"><h3 class="author">
+<span class="firstname">Kyle</span> <span class="surname">Lutz</span>
+</h3></div></div></div>
+<div><p class="copyright">Copyright &#169; 2013 Kyle Lutz</p></div>
+<div><div class="legalnotice">
+<a name="make_array.legal"></a><p>
+        Distributed under the Boost Software License, Version 1.0. (See accompanying
+        file LICENSE_1_0.txt or copy at <a href="http://www.boost.org/LICENSE_1_0.txt" target="_top">http://www.boost.org/LICENSE_1_0.txt</a>)
+      </p>
+</div></div>
+</div></div>
+<h2>
+<a name="make_array.h0"></a>
+    <span><a name="make_array.introduction"></a></span><a class="link" href="index.html#make_array.introduction">Introduction</a>
+  </h2>
+<p>
+    The <code class="computeroutput"><span class="identifier">make_array</span><span class="special">()</span></code>
+    function constructs a fixed size <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;&gt;</span></code>
+    given 0..N arguments. It is similar to the <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">make_pair</span><span class="special">()</span></code> and <code class="computeroutput"><span class="identifier">std</span><span class="special">::</span><span class="identifier">make_tuple</span><span class="special">()</span></code> functions.
+  </p>
+<h2>
+<a name="make_array.h1"></a>
+    <span><a name="make_array.interface"></a></span><a class="link" href="index.html#make_array.interface">Interface</a>
+  </h2>
+<p>
+    The <code class="computeroutput"><span class="identifier">make_array</span><span class="special">()</span></code>
+    function provides the following interface:
+  </p>
+<p>
+</p>
+<pre class="programlisting"><span class="keyword">template</span><span class="special">&lt;</span><span class="keyword">class</span> <span class="identifier">T</span><span class="special">&gt;</span>
+<span class="identifier">boost</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="identifier">T</span><span class="special">,</span> <span class="identifier">N</span><span class="special">&gt;</span> <span class="identifier">make_array</span><span class="special">(...)</span>
+</pre>
+<p>
+  </p>
+<p>
+    where the '...' indicates 0 to N arguments.
+  </p>
+<p>
+    If no type <code class="computeroutput"><span class="identifier">T</span></code> is passed explicitly
+    it is deduced to be the type common to all of the arguments (via <code class="computeroutput"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">common_type</span><span class="special">&lt;&gt;</span></code>). The function requires that all of the
+    arguments be convertible (via <code class="computeroutput"><span class="keyword">static_cast</span><span class="special">&lt;&gt;</span></code>) to the explicit type <code class="computeroutput"><span class="identifier">T</span></code>
+    or the deduced type.
+  </p>
+<h2>
+<a name="make_array.h2"></a>
+    <span><a name="make_array.examples"></a></span><a class="link" href="index.html#make_array.examples">Examples</a>
+  </h2>
+<p>
+    The following example shows how to use the <code class="computeroutput"><span class="identifier">make_array</span><span class="special">()</span></code> function to create an array containing two
+    <code class="computeroutput"><span class="keyword">int</span></code> elements:
+  </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="keyword">int</span><span class="special">,</span> <span class="number">2</span><span class="special">&gt;</span> <span class="identifier">x</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">make_array</span><span class="special">(</span><span class="number">46</span><span class="special">,</span> <span class="number">2</span><span class="special">);</span>
+</pre>
+<p>
+  </p>
+<p>
+    The following creates an array containing three <code class="computeroutput"><span class="keyword">float</span></code>
+    elements:
+  </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="keyword">float</span><span class="special">,</span> <span class="number">3</span><span class="special">&gt;</span> <span class="identifier">x</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">make_array</span><span class="special">(</span><span class="number">1.2f</span><span class="special">,</span> <span class="number">3.4f</span><span class="special">,</span> <span class="number">5.6f</span><span class="special">);</span>
+</pre>
+<p>
+  </p>
+<p>
+    The following creates an array of two <code class="computeroutput"><span class="keyword">float</span></code>
+    elements from two <code class="computeroutput"><span class="keyword">int</span></code> arguments
+    by specifying the type explicitly:
+  </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="keyword">float</span><span class="special">,</span> <span class="number">2</span><span class="special">&gt;</span> <span class="identifier">x</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">make_array</span><span class="special">&lt;</span><span class="keyword">float</span><span class="special">&gt;(</span><span class="number">3</span><span class="special">,</span> <span class="number">14</span><span class="special">);</span>
+</pre>
+<p>
+  </p>
+<p>
+    The following creates an array of three <code class="computeroutput"><span class="keyword">double</span></code>
+    elements from an <code class="computeroutput"><span class="keyword">int</span></code>, <code class="computeroutput"><span class="keyword">float</span></code>, and <code class="computeroutput"><span class="keyword">double</span></code>
+    argument:
+  </p>
+<p>
+</p>
+<pre class="programlisting"><span class="identifier">boost</span><span class="special">::</span><span class="identifier">array</span><span class="special">&lt;</span><span class="keyword">double</span><span class="special">,</span> <span class="number">3</span><span class="special">&gt;</span> <span class="identifier">x</span> <span class="special">=</span> <span class="identifier">boost</span><span class="special">::</span><span class="identifier">make_array</span><span class="special">(</span><span class="number">1</span><span class="special">,</span> <span class="number">2.0f</span><span class="special">,</span> <span class="number">3.0</span><span class="special">);</span>
+</pre>
+<p>
+  </p>
+<h2>
+<a name="make_array.h3"></a>
+    <span><a name="make_array.implementation_notes"></a></span><a class="link" href="index.html#make_array.implementation_notes">Implementation
+    Notes</a>
+  </h2>
+<p>
+    The <code class="computeroutput"><span class="identifier">make_array</span><span class="special">()</span></code>
+    function is implemented with C++11 variadic templates if they are supported by
+    the compiler. Otherwise a fallback implementation uses the preproccesor to create
+    N overloads of <code class="computeroutput"><span class="identifier">make_array</span><span class="special">()</span></code>
+    where N is defined by <code class="computeroutput"><span class="identifier">BOOST_MAKE_ARRAY_MAX_ARITY</span></code>
+    (with a default of 10).
+  </p>
+</div>
+<table xmlns:rev="http://www.cs.rpi.edu/~gregod/boost/tools/doc/revision" width="100%"><tr>
+<td align="left"></td>
+<td align="right"><div class="copyright-footer"></div></td>
+</tr></table>
+<hr>
+<div class="spirit-nav"></div>
+</body>
+</html>
