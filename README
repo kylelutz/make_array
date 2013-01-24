@@ -28,5 +28,5 @@ boost::array<float, 3> = boost::make_array<float>(1, 2, 3);
 --- Implementation Details ---
 The make_array() function is implemented with C++11 variadic templates if they
 are supported by the compiler. Otherwise a fallback implementation uses the 
-preproccesor to create N overloads of make_array() where N is defined by
+preprocessor to create N overloads of make_array() where N is defined by
 BOOST_MAKE_ARRAY_MAX_ARITY (with a default of 10).

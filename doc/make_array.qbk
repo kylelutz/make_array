@@ -73,5 +73,5 @@ The following creates an array of three `double` elements from an `int`,
 
 The `make_array()` function is implemented with C++11 variadic templates if
 they are supported by the compiler. Otherwise a fallback implementation uses
-the preproccesor to create N overloads of `make_array()` where N is defined by
+the preprocessor to create N overloads of `make_array()` where N is defined by
 `BOOST_MAKE_ARRAY_MAX_ARITY` (with a default of 10).
